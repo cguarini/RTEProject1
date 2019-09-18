@@ -2,3 +2,4 @@
 
 void initTIM2();
 unsigned int getCNT();
+unsigned int getCCR1();
