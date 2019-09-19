@@ -24,6 +24,7 @@ void initTIM2(){
     TIM2->CCER &= (~TIM_CCER_CC1NP);
     TIM2->CCER &= (~TIM_CCER_CC1P);
     
+    //Clear input prescaler
     TIM2->CCMR1 &= (~TIM_CCMR1_IC1PSC);
    
     
