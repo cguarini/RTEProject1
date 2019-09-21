@@ -17,5 +17,6 @@ void USART_IRQHandler(USART_TypeDef * USARTx, uint8_t *buffer, uint32_t * pRx_co
 void putChar(uint8_t c);
 void putString(char * str);
 char getChar(void);
+char * getString(void);
 
 #endif /* __STM32L476G_DISCOVERY_UART_H */

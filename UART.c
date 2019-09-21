@@ -1,5 +1,6 @@
 #include "UART.h"
 
+char getStrReturn[256];
 
 // UART Ports:
 // ===================================================
@@ -166,4 +167,28 @@ char getChar(void){
     return USART_Read(USART2);
 }
 
+char * getString(){
+  int index = 0;
+  
+  //Get input until enter is hit
+  char input = 1;
+  while((input = getChar())){
+    if(index == 255){
+      //Too much input, why would you do that?
+      getStrReturn[0] = 0x00;
+    }
+    if(input == 0xD){
+      //Enter was hit
+      //null terminate and return
+      putString("\n\r");
+      getStrReturn[index] = 0x00;
+      break;
+    }
+    //character was entered, add it to buffer
+    putChar(input);
+    getStrReturn[index] = input;
+    index++;
+  }
+  return getStrReturn;
+}
 
