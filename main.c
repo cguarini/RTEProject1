@@ -4,6 +4,7 @@
 #include "UART.h"
 #include "Timer.h"
 #include "GPIOINP.h"
+#include "POST.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -20,7 +21,7 @@ long lowerLimit = 1000;
 void printBuckets(){
     for(int i = 0; i < 100; i++){
         if(buckets[i]){
-            sprintf(str, "%d %d\r\n", 950 + i, buckets[i]);
+            sprintf(str, "%ld %d\r\n", ((lowerLimit - 50) + i), buckets[i]);
             putString(str);
         }
     }
@@ -112,6 +113,10 @@ int main(void){
 	UART2_Init();
   initGPIOA();
   initTIM2();
+  
+  //Run the post test
+  POSTtest();
+  
   
   
   while(1){
