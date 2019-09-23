@@ -115,7 +115,12 @@ int main(void){
   initTIM2();
   
   //Run the post test
-  POSTtest();
+  while(!POSTtest()){
+		putString("POST Test failed! Module requires atleast a 10Hz Signal on PA0\n\r");
+		putString("Will try again in 5 seconds...\n\r");
+	}
+	
+	putString("POST Test success!\n\r");
   
   
   

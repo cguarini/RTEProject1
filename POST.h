@@ -5,6 +5,6 @@
 #include "Timer.h"
 #include "UART.h"
 
-void POSTtest(void);
+int POSTtest(void);
 
 #endif /* __STM32L476G_DISCOVERY_POST_H */
