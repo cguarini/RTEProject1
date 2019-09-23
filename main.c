@@ -17,7 +17,7 @@ uint32_t results[10];
 int buckets[100];
 long lowerLimit = 1000;
 
-
+//Prints the buckets, or the results of the time period procedure
 void printBuckets(){
     for(int i = 0; i < 100; i++){
         if(buckets[i]){
@@ -27,12 +27,15 @@ void printBuckets(){
     }
 }
 
+//initialize buckets to empty
 void initializeBuckets(){
     for(int i = 0; i < 100; i++){
         buckets[i] = 0;
     }
 }
 
+//Handles the initial interface of the program, allowing the user
+//to redefine the lowerLimit variable.
 void runInterface(void){
   //Print introduction message
   putString("Welcome to the Timing Demo for Group 17!");
@@ -86,6 +89,8 @@ void runInterface(void){
   
 }
 
+//Displays "Run Again?" prompt and handles user input
+//Returns 1 if user answers yes, 0 if no.
 int runAgain(){
   putString("Would you like to run again? Y|N: ");
   
@@ -108,22 +113,19 @@ int runAgain(){
 
 int main(void){
 
-	
 	System_Clock_Init(); // Switch System Clock = 80 MHz
 	UART2_Init();
   initGPIOA();
-  initTIM2();
+  initTIM2(); //1MHz clock frequency
   
-  //Run the post test
+  //Run the post test, do not continue until POST passes
   while(!POSTtest()){
 		putString("POST Test failed! Module requires atleast a 10Hz Signal on PA0\n\r");
 		putString("Will try again in 5 seconds...\n\r");
 	}
-	
 	putString("POST Test success!\n\r");
   
-  
-  
+	//Main program loop
   while(1){
     //reset limit to default
     lowerLimit = 1000;
@@ -136,7 +138,7 @@ int main(void){
 
     int previousTime = 0;
     int count = 0;
-    while(count < 1000){
+    while(count < 1001){
         if(TIM2->SR & TIM_SR_CC1IF){//Check for rising edge flag
             uint32_t currentTime = getCCR1();
             if(previousTime > 0){//if there is a previous time (not the first measurement)

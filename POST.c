@@ -35,22 +35,27 @@ int POSTtest(void) {
 								timeint= postcurr - postprev;
 								sprintf(tbuff, "The time interval is %d\r\n", timeint);
 								putString(tbuff);
-							}
-							postprev = postcurr;
+							}else{
+                postprev = postcurr;
+                continue;
+              }
 							
 					
 							
-							if(timeint >= 100000)
+							if(timeint >= 100)
 							{
 									USART_Write(USART2, pfine, strlen(pfine));
 									return 1;
 							}
-									 
-							else 
-							{
-									return 0;
-							}
+              else{
+                return 0;
+              }
+
     
+            }
+            else if(getCNT() > prevCNT + 200000){
+              putString("POST timed out...\r\n");
+              return 0;
             }
           }
 }
